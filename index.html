@@ -8,19 +8,31 @@
    <title>Fitts' Law Project</title>
 </head>
 <body>
+
+   <div class="readyCheck">
+      <div class="text">
+         <h2>Fitts' Law</h2>
+         <p>Click between the buttons as fast as you can 10 times.  Your time will be recorded for each click!</p>
+      </div>
+      <button id="start">Start!</button>
+   </div>
+
    <div class="count-container">
       <span id="counter">0</span><sub>Clicked</sub>
    </div>
+
    <div class="btn-container">
-      <button id="left">Left</button>
-      <button id="right">Right</button>
+      <button id="left" disabled>L</button>
+      <button id="right" disabled>R</button>
    </div>
+
    <div class="timer-container">
       <div class="time">
          <span id="timer">0.00</span><sub>seconds</sub>
       </div>
       <button id="reset">Reset</button>
    </div>
+
 </body>
 <footer>
    <script

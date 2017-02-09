@@ -1,7 +1,6 @@
 html,
 body {
    height: 100%;
-   width: 100%;
    padding: 0;
    margin: 0;
 
@@ -13,16 +12,42 @@ body {
 sub {
    font-weight: bold;
 }
+table {
+   width: 60%;
+   margin: 0 auto;
+   text-align: center;
+   border: 1px solid #cecece;
+   border-collapse: collapse;
+}
+thead tr {
+   font-weight: bold;
+}
+
+tbody tr {
+   border-bottom: 1px solid #cecece;
+   height: 10px;
+}
+
+tbody td {
+   padding: 5px 0;
+}
+
+tbody tr:nth-child(even) {
+   background-color: #cecece;
+}
+
+.center-txt {
+   text-align: center;
+}
 
 .btn-container {
    height: 70%;
    width: 100%;
 
-   display: flex;
-   align-items: center;
-   justify-content: center;
+   position: relative;
 }
 .btn-container button {
+   position: absolute;
    width: 200px;
    height: 200px;
 
@@ -31,13 +56,22 @@ sub {
    background-color: rgb(255,0,0);
    font-weight: bold;
 
-   margin: 0 150px;
    border: none;
    border-radius: 50%;
    outline: none;
 
    cursor: pointer;
    transition: .1s background-color linear, .1s box-shadow linear;
+}
+.btn-container button#left {
+   top: 50%;
+   left: 20%;
+   transform: translateY(-50%);
+}
+.btn-container button#right {
+   top: 50%;
+   right: 20%;
+   transform: translateY(-50%);
 }
 .btn-container button:hover {
    background-color: rgb(0,255,0);
@@ -63,4 +97,20 @@ sub {
 }
 .timer-container span {
    font-size: 50px;
+}
+
+.readyCheck {
+   position: absolute;
+   width: 600px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: rgba(239, 239, 239, 0.95);
+   text-align: center;
+   z-index: 2;
+}
+.readyCheck button {
+   height: 50px;
+   width: 100px;
+   margin-bottom: 10px;
 }
