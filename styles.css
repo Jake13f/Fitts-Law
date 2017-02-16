@@ -63,12 +63,12 @@ tbody tr:nth-child(even) {
    cursor: pointer;
    transition: .1s background-color linear, .1s box-shadow linear;
 }
-.btn-container button#left {
+.btn-container button.left {
    top: 50%;
    left: 20%;
    transform: translateY(-50%);
 }
-.btn-container button#right {
+.btn-container button.right {
    top: 50%;
    right: 20%;
    transform: translateY(-50%);
@@ -81,6 +81,37 @@ tbody tr:nth-child(even) {
    box-shadow: none;
    background-color: rgba(162,162,162,.5);
    cursor: default;
+}
+.btn-container.p2{
+  display: none;
+}
+.btn-container.p2 button{
+  width: 100px;
+  height: 100px;
+}
+.btn-container.p2 button.left {
+  top: 0;
+  left: 0;
+}
+.btn-container.p2 button.right {
+  top: 100%;
+  right: 0;
+}
+
+.btn-container.p3{
+  display: none;
+}
+.btn-container.p3 button{
+  width: 50px;
+  height: 50px;
+}
+.btn-container.p3 button.left {
+  top: 100%;
+  left: 0;
+}
+.btn-container.p3 button.right {
+  top: 0;
+  right: 0;
 }
 
 .count-container {

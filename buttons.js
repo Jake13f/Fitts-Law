@@ -1,7 +1,7 @@
 $(function () {
    var btns = $(".btn-container button");
-   var lbtn = $("#left");
-   var rbtn = $("#right");
+   var lbtn = $(".left");
+   var rbtn = $(".right");
    var counter = $("#counter");
    var reset = $("#reset");
    var time = $("#timer");
@@ -36,10 +36,10 @@ $(function () {
 
    // Event handler for the button clicks
    btns.on("click", function () {
-      var id = $(this).prop("id");
+      var className = $(this).prop("class");
 
       // Determine what button to toggle
-      if (id == "right") {
+      if (className == "right") {
          // Right was clicked so turn on the left and disable right
          turnOn(lbtn);
          turnOff(rbtn);
@@ -66,18 +66,13 @@ $(function () {
          trials.current++;
          if (trials.current == 2) {
             $('.text').html("<h2>Trial 2</h2>");
-            shrink(lbtn, rbtn);
-            lbtn.css('top', '0');
-            lbtn.css('left', '0');
-            rbtn.css('top', '100%');
-            rbtn.css('right', '0');
+            $('.btn-container').hide();
+            $('.btn-container.p2').show();
+
          } else if (trials.current == 3) {
             $('.text').html("<h2>Trial 3</h2>");
-            shrink(lbtn, rbtn);
-            lbtn.css('top', '100%');
-            lbtn.css('left', '0');
-            rbtn.css('top', '0');
-            rbtn.css('right', '0');
+            $('.btn-container').hide();
+            $('.btn-container.p3').show();
          } else {
             var trialHTML = `
                <h2 class='center-txt'>RESULTS<h2>
@@ -93,19 +88,24 @@ $(function () {
                   <tbody>
             `;
             var total = [0,0,0];
+            var previous = [0,0,0];
             trials.times1.forEach(function (trial, i) {
-               total[0] += trials.times1[i];
-               total[1] += trials.times2[i];
-               total[2] += trials.times3[i];
+               total[0] += trials.times1[i] - previous[0];
+               total[1] += trials.times2[i] - previous[1];
+               total[2] += trials.times3[i] - previous[2];
 
                trialHTML += `
                   <tr>
                      <td>`+(i+1)+`</td>
-                     <td>`+inSeconds(trials.times1[i])+`</td>
-                     <td>`+inSeconds(trials.times2[i])+`</td>
-                     <td>`+inSeconds(trials.times3[i])+`</td>
+                     <td>`+inSeconds(trials.times1[i] - previous[0])+`</td>
+                     <td>`+inSeconds(trials.times2[i] - previous[1])+`</td>
+                     <td>`+inSeconds(trials.times3[i] - previous[2])+`</td>
                   </tr>
                `;
+
+               previous[0] = trials.times1[i];
+               previous[1] = trials.times2[i];
+               previous[2] = trials.times3[i];
             });
             trialHTML += `
                <tr>
@@ -131,16 +131,17 @@ $(function () {
    reset.on("click", function () {
       clearInterval(timer);
       count = totalTime = 0;
-      trails.current = 1;
+      trials.current = 1;
       time.text(inSeconds(totalTime));
       counter.text(count);
-
+      $('.text').html("<h2>Trials have been reset</h2>" +
+                      "<p> Click between the buttons as fast as you can 10 times.  Your time will be recorded for each click! </p>");
+      $(".readyCheck").show();
       turnOn(lbtn);
-      turnOn(rbtn);
+      turnOff(rbtn);
 
-      // TODO: Remove when completed - testing
-      // lbtn.click();
-      // rbtn.click();
+      $('.btn-container').hide();
+      $('.btn-container.p1').show();
    });
 
    // Toggle the disabled attribute on or off
@@ -149,13 +150,5 @@ $(function () {
    function turnOff (element) { element.prop('disabled', true); }
    function inSeconds (t) { t = t / 100; return t.toFixed(2); }
 
-   // Shrink the button size
-   // @param b1 - the first button element
-   // @param b2 - the second button element
-   function shrink (b1, b2) {
-      b1.width(b1.width() / 2);
-      b1.height(b1.height() / 2);
-      b2.width(b2.width() / 2);
-      b2.height(b2.height() / 2);
-   }
+
 });
